@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ioan 11-12 Complet - Interactiv</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; }
+        .content { padding: 30px; }
+        .section { margin-bottom: 40px; }
+        .section-title { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 20px; border-radius: 10px; font-size: 1.3em; margin-bottom: 20px; }
+        .question { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #667eea; }
+        .question-text { font-weight: 600; color: #333; margin-bottom: 15px; font-size: 1.05em; }
+        .option { display: flex; align-items: center; padding: 12px; margin: 8px 0; background: white; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .option:hover { border-color: #667eea; background: #f0f4ff; }
+        .option input { margin-right: 12px; cursor: pointer; width: 20px; height: 20px; }
+        .option label { cursor: pointer; flex: 1; }
+        .matching-item { display: flex; align-items: center; gap: 15px; background: white; padding: 15px; border-radius: 8px; border: 2px solid #e0e0e0; margin-bottom: 15px; }
+        .matching-item select { padding: 8px 12px; border: 2px solid #667eea; border-radius: 6px; font-size: 1em; cursor: pointer; min-width: 250px; }
+        .submit-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; font-size: 1.2em; border-radius: 10px; cursor: pointer; display: block; margin: 30px auto; transition: transform 0.3s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+        .results { background: #f0f4ff; padding: 30px; border-radius: 15px; text-align: center; display: none; margin-top: 30px; }
+        .results.show { display: block; }
+        .score { font-size: 3em; font-weight: bold; color: #667eea; margin: 20px 0; }
+        .feedback { padding: 10px; margin-top: 10px; border-radius: 8px; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #d4edda; color: #155724; border: 2px solid #c3e6cb; }
+        .feedback.incorrect { background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+        .reset-btn { background: #6c757d; color: white; border: none; padding: 12px 30px; font-size: 1.1em; border-radius: 8px; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="header"><h1>📖 Test Complet Ioan Capitolele 11-12</h1><p style="margin-top:10px; font-size:1.1em;">Test Condensat - 50 Întrebări Esențiale</p></div>
+<div class="content">
+<div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 30px; border-left: 4px solid #2196F3;">
+<p style="margin-bottom: 10px;"><strong>📊 Structura testului:</strong></p>
+<ul style="margin-left: 20px; line-height: 1.8;">
+<li>20 întrebări Adevărat/Fals (40 puncte - câte 2 puncte fiecare)</li>
+<li>20 întrebări cu alegere multiplă (80 puncte - câte 4 puncte fiecare)</li>
+<li>5 întrebări de asociere (10 puncte - câte 2 puncte fiecare)</li>
+<li>5 întrebări cu răspuns multiplu (25 puncte - câte 5 puncte fiecare)</li>
+</ul>
+<p style="margin-top: 15px;"><strong>Total: 50 întrebări | 155 puncte</strong></p>
+</div>
+<form id="testForm">
+
+<div class="section">
+<div class="section-title">I. Adevărat sau Fals (40 puncte)</div>
+
+<div class="question">
+<div class="question-text">1. Când a venit, Isus a aflat că Lazăr era de patru zile în mormânt. <span style="color: #667eea; font-style: italic;">(Ioan 11:17)</span></div>
+<div class="option"><input type="radio" name="q1" value="A" id="q1a"><label for="q1a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q1" value="F" id="q1f"><label for="q1f">Fals</label></div>
+<div class="feedback" data-question="1"></div>
+</div>
+
+<div class="question">
+<div class="question-text">2. Lazăr era din satul Betania. <span style="color: #667eea; font-style: italic;">(Ioan 11:1)</span></div>
+<div class="option"><input type="radio" name="q2" value="A" id="q2a"><label for="q2a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q2" value="F" id="q2f"><label for="q2f">Fals</label></div>
+<div class="feedback" data-question="2"></div>
+</div>
+
+<div class="question">
+<div class="question-text">3. Isus a spus: „Boala aceasta nu este spre moarte, ci spre slava lui Dumnezeu." <span style="color: #667eea; font-style: italic;">(Ioan 11:4)</span></div>
+<div class="option"><input type="radio" name="q3" value="A" id="q3a"><label for="q3a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q3" value="F" id="q3f"><label for="q3f">Fals</label></div>
+<div class="feedback" data-question="3"></div>
+</div>
+
+<div class="question">
+<div class="question-text">4. Ucenicii au crezut că Isus vorbește despre moartea lui Lazăr când a spus că "Lazăr doarme". <span style="color: #667eea; font-style: italic;">(Ioan 11:13)</span></div>
+<div class="option"><input type="radio" name="q4" value="A" id="q4a"><label for="q4a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q4" value="F" id="q4f"><label for="q4f">Fals</label></div>
+<div class="feedback" data-question="4"></div>
+</div>
+
+<div class="question">
+<div class="question-text">5. Toma, zis Geamăn, i-a îndemnat pe ucenici să meargă cu Isus, ca să moară și ei cu El. <span style="color: #667eea; font-style: italic;">(Ioan 11:16)</span></div>
+<div class="option"><input type="radio" name="q5" value="A" id="q5a"><label for="q5a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q5" value="F" id="q5f"><label for="q5f">Fals</label></div>
+<div class="feedback" data-question="5"></div>
+</div>
+
+<div class="question">
+<div class="question-text">6. Betania era aproape de Ierusalim, cam la cincisprezece stadii. <span style="color: #667eea; font-style: italic;">(Ioan 11:18)</span></div>
+<div class="option"><input type="radio" name="q6" value="A" id="q6a"><label for="q6a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q6" value="F" id="q6f"><label for="q6f">Fals</label></div>
+<div class="feedback" data-question="6"></div>
+</div>
+
+<div class="question">
+<div class="question-text">7. Când au auzit că vine Isus, Marta i-a ieșit înainte, iar Maria ședea în casă. <span style="color: #667eea; font-style: italic;">(Ioan 11:20)</span></div>
+<div class="option"><input type="radio" name="q7" value="A" id="q7a"><label for="q7a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q7" value="F" id="q7f"><label for="q7f">Fals</label></div>
+<div class="feedback" data-question="7"></div>
+</div>
+
+<div class="question">
+<div class="question-text">8. Maria când a ajuns la Isus și I-a zis același lucru ca Marta: „Doamne, dacă ai fi fost aici, n-ar fi murit fratele meu." <span style="color: #667eea; font-style: italic;">(Ioan 11:32, 21)</span></div>
+<div class="option"><input type="radio" name="q8" value="A" id="q8a"><label for="q8a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q8" value="F" id="q8f"><label for="q8f">Fals</label></div>
+<div class="feedback" data-question="8"></div>
+</div>
+
+<div class="question">
+<div class="question-text">9. Isus a plâns înainte de a-l învia pe Lazăr. <span style="color: #667eea; font-style: italic;">(Ioan 11:35)</span></div>
+<div class="option"><input type="radio" name="q9" value="A" id="q9a"><label for="q9a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q9" value="F" id="q9f"><label for="q9f">Fals</label></div>
+<div class="feedback" data-question="9"></div>
+</div>
+
+<div class="question">
+<div class="question-text">10. Mortul a ieșit cu mâinile și picioarele legate cu fâșii de pânză și cu fața înfășurată cu un ștergar. <span style="color: #667eea; font-style: italic;">(Ioan 11:44)</span></div>
+<div class="option"><input type="radio" name="q10" value="A" id="q10a"><label for="q10a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q10" value="F" id="q10f"><label for="q10f">Fals</label></div>
+<div class="feedback" data-question="10"></div>
+</div>
+
+<div class="question">
+<div class="question-text">11. Ana, marele preot, a hotărât ca Isus să fie omorât. <span style="color: #667eea; font-style: italic;">(Ioan 11:49)</span></div>
+<div class="option"><input type="radio" name="q11" value="A" id="q11a"><label for="q11a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q11" value="F" id="q11f"><label for="q11f">Fals</label></div>
+<div class="feedback" data-question="11"></div>
+</div>
+
+<div class="question">
+<div class="question-text">12. După minunea învierii lui Lazăr, preoții cei mai de seamă și fariseii au hotărât să-L lase pe Isus în pace. <span style="color: #667eea; font-style: italic;">(Ioan 11:53, 47)</span></div>
+<div class="option"><input type="radio" name="q12" value="A" id="q12a"><label for="q12a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q12" value="F" id="q12f"><label for="q12f">Fals</label></div>
+<div class="feedback" data-question="12"></div>
+</div>
+
+<div class="question">
+<div class="question-text">13. Cu șase zile înainte de Paște, Isus a venit în Betania, unde era Lazăr. <span style="color: #667eea; font-style: italic;">(Ioan 12:1)</span></div>
+<div class="option"><input type="radio" name="q13" value="A" id="q13a"><label for="q13a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q13" value="F" id="q13f"><label for="q13f">Fals</label></div>
+<div class="feedback" data-question="13"></div>
+</div>
+
+<div class="question">
+<div class="question-text">14. Marta a fost cea care a uns picioarele lui Isus cu mir. <span style="color: #667eea; font-style: italic;">(Ioan 12:3)</span></div>
+<div class="option"><input type="radio" name="q14" value="A" id="q14a"><label for="q14a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q14" value="F" id="q14f"><label for="q14f">Fals</label></div>
+<div class="feedback" data-question="14"></div>
+</div>
+
+<div class="question">
+<div class="question-text">15. Iuda a vorbit astfel pentru că era îngrijorat de săraci. <span style="color: #667eea; font-style: italic;">(Ioan 12:4-6)</span></div>
+<div class="option"><input type="radio" name="q15" value="A" id="q15a"><label for="q15a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q15" value="F" id="q15f"><label for="q15f">Fals</label></div>
+<div class="feedback" data-question="15"></div>
+</div>
+
+<div class="question">
+<div class="question-text">16. Fariseii au vrut să-l omoare și pe Lazăr pentru că mulți credeau în Isus din pricina lui. <span style="color: #667eea; font-style: italic;">(Ioan 12:10-11)</span></div>
+<div class="option"><input type="radio" name="q16" value="A" id="q16a"><label for="q16a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q16" value="F" id="q16f"><label for="q16f">Fals</label></div>
+<div class="feedback" data-question="16"></div>
+</div>
+
+<div class="question">
+<div class="question-text">17. Mulțimea L-a întâmpinat pe Isus în Ierusalim cu ramuri de finic. <span style="color: #667eea; font-style: italic;">(Ioan 12:13)</span></div>
+<div class="option"><input type="radio" name="q17" value="A" id="q17a"><label for="q17a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q17" value="F" id="q17f"><label for="q17f">Fals</label></div>
+<div class="feedback" data-question="17"></div>
+</div>
+
+<div class="question">
+<div class="question-text">18. Grecii veniți la praznic au vrut să-l vadă pe Isus și au vorbit cu Filip. <span style="color: #667eea; font-style: italic;">(Ioan 12:20-21)</span></div>
+<div class="option"><input type="radio" name="q18" value="A" id="q18a"><label for="q18a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q18" value="F" id="q18f"><label for="q18f">Fals</label></div>
+<div class="feedback" data-question="18"></div>
+</div>
+
+<div class="question">
+<div class="question-text">19. Isus a spus: „Dacă grăuntele de grâu care a căzut pe pământ, nu moare, rămâne singur." <span style="color: #667eea; font-style: italic;">(Ioan 12:24)</span></div>
+<div class="option"><input type="radio" name="q19" value="A" id="q19a"><label for="q19a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q19" value="F" id="q19f"><label for="q19f">Fals</label></div>
+<div class="feedback" data-question="19"></div>
+</div>
+
+<div class="question">
+<div class="question-text">20. Isaia a văzut slava Lui (Isus) și a vorbit despre El. <span style="color: #667eea; font-style: italic;">(Ioan 12:41)</span></div>
+<div class="option"><input type="radio" name="q20" value="A" id="q20a"><label for="q20a">Adevărat</label></div>
+<div class="option"><input type="radio" name="q20" value="F" id="q20f"><label for="q20f">Fals</label></div>
+<div class="feedback" data-question="20"></div>
+</div>
+
+</div>
+
+<div class="section">
+<div class="section-title">II. Alegere multiplă (80 puncte)</div>
+
+<div class="question">
+<div class="question-text">21. Ce a făcut Isus când a auzit că Lazăr este bolnav? <span style="color: #667eea; font-style: italic;">(Ioan 11:6)</span></div>
+<div class="option"><input type="radio" name="q21" value="a" id="q21a"><label for="q21a">a. A zăbovit două zile în locul unde era</label></div>
+<div class="option"><input type="radio" name="q21" value="b" id="q21b"><label for="q21b">b. A plecat imediat la Betania</label></div>
+<div class="option"><input type="radio" name="q21" value="c" id="q21c"><label for="q21c">c. L-a vindecat de la distanță</label></div>
+<div class="feedback" data-question="21"></div>
+</div>
+
+<div class="question">
+<div class="question-text">22. La ce distanță era Betania de Ierusalim? <span style="color: #667eea; font-style: italic;">(Ioan 11:18)</span></div>
+<div class="option"><input type="radio" name="q22" value="a" id="q22a"><label for="q22a">a. 11 stadii</label></div>
+<div class="option"><input type="radio" name="q22" value="b" id="q22b"><label for="q22b">b. 15 stadii</label></div>
+<div class="option"><input type="radio" name="q22" value="c" id="q22c"><label for="q22c">c. 14 stadii</label></div>
+<div class="feedback" data-question="22"></div>
+</div>
+
+<div class="question">
+<div class="question-text">23. Cine a ieșit înaintea lui Isus când a ajuns în Betania? <span style="color: #667eea; font-style: italic;">(Ioan 11:20)</span></div>
+<div class="option"><input type="radio" name="q23" value="a" id="q23a"><label for="q23a">a. Maria</label></div>
+<div class="option"><input type="radio" name="q23" value="b" id="q23b"><label for="q23b">b. Marta</label></div>
+<div class="option"><input type="radio" name="q23" value="c" id="q23c"><label for="q23c">c. Lazăr</label></div>
+<div class="feedback" data-question="23"></div>
+</div>
+
+<div class="question">
+<div class="question-text">24. Ce verset scurt arată sentimentele lui Isus? <span style="color: #667eea; font-style: italic;">(Ioan 11:35)</span></div>
+<div class="option"><input type="radio" name="q24" value="a" id="q24a"><label for="q24a">a. „Isus plângea."</label></div>
+<div class="option"><input type="radio" name="q24" value="b" id="q24b"><label for="q24b">b. „Isus a strigat."</label></div>
+<div class="option"><input type="radio" name="q24" value="c" id="q24c"><label for="q24c">c. „Isus a râs."</label></div>
+<div class="feedback" data-question="24"></div>
+</div>
+
+<div class="question">
+<div class="question-text">25. Ce au zis iudeii când L-au văzut pe Isus plângând? <span style="color: #667eea; font-style: italic;">(Ioan 11:36-37)</span></div>
+<div class="option"><input type="radio" name="q25" value="a" id="q25a"><label for="q25a">a. "Iată cât Îl iubea de mult!"</label></div>
+<div class="option"><input type="radio" name="q25" value="b" id="q25b"><label for="q25b">b. "El, care a deschis ochii orbului, nu putea face ca nici omul acesta să nu moară?"</label></div>
+<div class="option"><input type="radio" name="q25" value="c" id="q25c"><label for="q25c">c. Ambele variante corecte</label></div>
+<div class="feedback" data-question="25"></div>
+</div>
+
+<div class="question">
+<div class="question-text">26. Ce a spus Marta când Isus a cerut să se dea piatra la o parte? <span style="color: #667eea; font-style: italic;">(Ioan 11:39)</span></div>
+<div class="option"><input type="radio" name="q26" value="a" id="q26a"><label for="q26a">a. „Să se facă voia Ta."</label></div>
+<div class="option"><input type="radio" name="q26" value="b" id="q26b"><label for="q26b">b. „Doamne, miroase greu, căci este mort de patru zile."</label></div>
+<div class="option"><input type="radio" name="q26" value="c" id="q26c"><label for="q26c">c. „Nu putem deschide mormântul."</label></div>
+<div class="feedback" data-question="26"></div>
+</div>
+
+<div class="question">
+<div class="question-text">27. Cum S-a rugat Isus înainte de învierea lui Lazăr? <span style="color: #667eea; font-style: italic;">(Ioan 11:41-42)</span></div>
+<div class="option"><input type="radio" name="q27" value="a" id="q27a"><label for="q27a">a. „Tată, Îți mulțumesc că M-ai ascultat."</label></div>
+<div class="option"><input type="radio" name="q27" value="b" id="q27b"><label for="q27b">b. „Doamne, ajută-mă să am putere."</label></div>
+<div class="option"><input type="radio" name="q27" value="c" id="q27c"><label for="q27c">c. „Tată, Te rog să faci o minune."</label></div>
+<div class="feedback" data-question="27"></div>
+</div>
+
+<div class="question">
+<div class="question-text">28. Ce a poruncit Isus când Lazăr a ieșit din mormânt? <span style="color: #667eea; font-style: italic;">(Ioan 11:44)</span></div>
+<div class="option"><input type="radio" name="q28" value="a" id="q28a"><label for="q28a">a. „Nu vă atingeți de el!"</label></div>
+<div class="option"><input type="radio" name="q28" value="b" id="q28b"><label for="q28b">b. „Dezlegați-l și lăsați-l să meargă."</label></div>
+<div class="option"><input type="radio" name="q28" value="c" id="q28c"><label for="q28c">c. „Dați-i de mâncare!"</label></div>
+<div class="feedback" data-question="28"></div>
+</div>
+
+<div class="question">
+<div class="question-text">29. Cine a proorocit că Isus avea să moară pentru neam? <span style="color: #667eea; font-style: italic;">(Ioan 11:51, 49)</span></div>
+<div class="option"><input type="radio" name="q29" value="a" id="q29a"><label for="q29a">a. Caiafa</label></div>
+<div class="option"><input type="radio" name="q29" value="b" id="q29b"><label for="q29b">b. Iudeii</label></div>
+<div class="option"><input type="radio" name="q29" value="c" id="q29c"><label for="q29c">c. Ucenicii</label></div>
+<div class="feedback" data-question="29"></div>
+</div>
+
+<div class="question">
+<div class="question-text">30. De ce s-au suit oamenii din ținutul acela la Ierusalim, înainte de Paște? <span style="color: #667eea; font-style: italic;">(Ioan 11:55)</span></div>
+<div class="option"><input type="radio" name="q30" value="a" id="q30a"><label for="q30a">a. Să-l vadă pe Isus</label></div>
+<div class="option"><input type="radio" name="q30" value="b" id="q30b"><label for="q30b">b. Să se curețe</label></div>
+<div class="option"><input type="radio" name="q30" value="c" id="q30c"><label for="q30c">c. Să aducă jertfe</label></div>
+<div class="feedback" data-question="30"></div>
+</div>
+
+<div class="question">
+<div class="question-text">31. Cu câte zile înainte de Paște a venit Isus în Betania? <span style="color: #667eea; font-style: italic;">(Ioan 12:1)</span></div>
+<div class="option"><input type="radio" name="q31" value="a" id="q31a"><label for="q31a">a. 6</label></div>
+<div class="option"><input type="radio" name="q31" value="b" id="q31b"><label for="q31b">b. 4</label></div>
+<div class="option"><input type="radio" name="q31" value="c" id="q31c"><label for="q31c">c. 3</label></div>
+<div class="feedback" data-question="31"></div>
+</div>
+
+<div class="question">
+<div class="question-text">32. Cine a slujit la cină în Betania? <span style="color: #667eea; font-style: italic;">(Ioan 12:2)</span></div>
+<div class="option"><input type="radio" name="q32" value="a" id="q32a"><label for="q32a">a. Maria</label></div>
+<div class="option"><input type="radio" name="q32" value="b" id="q32b"><label for="q32b">b. Marta</label></div>
+<div class="option"><input type="radio" name="q32" value="c" id="q32c"><label for="q32c">c. Salome</label></div>
+<div class="feedback" data-question="32"></div>
+</div>
+
+<div class="question">
+<div class="question-text">33. Cu ce a uns Maria picioarele lui Isus? <span style="color: #667eea; font-style: italic;">(Ioan 12:3)</span></div>
+<div class="option"><input type="radio" name="q33" value="a" id="q33a"><label for="q33a">a. Cu mir de nard curat</label></div>
+<div class="option"><input type="radio" name="q33" value="b" id="q33b"><label for="q33b">b. Cu ulei de măsline</label></div>
+<div class="option"><input type="radio" name="q33" value="c" id="q33c"><label for="q33c">c. Cu parfum de smirnă</label></div>
+<div class="feedback" data-question="33"></div>
+</div>
+
+<div class="question">
+<div class="question-text">34. Cine s-a plâns că mirul a fost risipit? <span style="color: #667eea; font-style: italic;">(Ioan 12:4-5)</span></div>
+<div class="option"><input type="radio" name="q34" value="a" id="q34a"><label for="q34a">a. Petru</label></div>
+<div class="option"><input type="radio" name="q34" value="b" id="q34b"><label for="q34b">b. Iuda Iscarioteanul</label></div>
+<div class="option"><input type="radio" name="q34" value="c" id="q34c"><label for="q34c">c. Fariseii</label></div>
+<div class="feedback" data-question="34"></div>
+</div>
+
+<div class="question">
+<div class="question-text">35. Ce a spus Isus despre săraci? <span style="color: #667eea; font-style: italic;">(Ioan 12:8)</span></div>
+<div class="option"><input type="radio" name="q35" value="a" id="q35a"><label for="q35a">a. „Pe săraci nu-i veți avea niciodată."</label></div>
+<div class="option"><input type="radio" name="q35" value="b" id="q35b"><label for="q35b">b. „Pe săraci îi aveți totdeauna cu voi."</label></div>
+<div class="option"><input type="radio" name="q35" value="c" id="q35c"><label for="q35c">c. „Săracii nu contează."</label></div>
+<div class="feedback" data-question="35"></div>
+</div>
+
+<div class="question">
+<div class="question-text">36. Cu ce ramuri a ieșit mulțimea în întâmpinarea lui Isus? <span style="color: #667eea; font-style: italic;">(Ioan 12:13)</span></div>
+<div class="option"><input type="radio" name="q36" value="a" id="q36a"><label for="q36a">a. De finic</label></div>
+<div class="option"><input type="radio" name="q36" value="b" id="q36b"><label for="q36b">b. De măslin</label></div>
+<div class="option"><input type="radio" name="q36" value="c" id="q36c"><label for="q36c">c. De viță</label></div>
+<div class="feedback" data-question="36"></div>
+</div>
+
+<div class="question">
+<div class="question-text">37. Pe ce animal a intrat Isus în Ierusalim? <span style="color: #667eea; font-style: italic;">(Ioan 12:14)</span></div>
+<div class="option"><input type="radio" name="q37" value="a" id="q37a"><label for="q37a">a. Cal</label></div>
+<div class="option"><input type="radio" name="q37" value="b" id="q37b"><label for="q37b">b. Cămilă</label></div>
+<div class="option"><input type="radio" name="q37" value="c" id="q37c"><label for="q37c">c. Măgăruș</label></div>
+<div class="feedback" data-question="37"></div>
+</div>
+
+<div class="question">
+<div class="question-text">38. Ce a spus Isus despre bobul de grâu? <span style="color: #667eea; font-style: italic;">(Ioan 12:24)</span></div>
+<div class="option"><input type="radio" name="q38" value="a" id="q38a"><label for="q38a">a. „Dacă nu moare, rămâne singur."</label></div>
+<div class="option"><input type="radio" name="q38" value="b" id="q38b"><label for="q38b">b. „Dacă moare, nu aduce roadă."</label></div>
+<div class="option"><input type="radio" name="q38" value="c" id="q38c"><label for="q38c">c. „Dacă e ars, crește din nou."</label></div>
+<div class="feedback" data-question="38"></div>
+</div>
+
+<div class="question">
+<div class="question-text">39. Ce a spus Isus despre sufletul Său? <span style="color: #667eea; font-style: italic;">(Ioan 12:27)</span></div>
+<div class="option"><input type="radio" name="q39" value="a" id="q39a"><label for="q39a">a. „Sufletul Meu este vesel."</label></div>
+<div class="option"><input type="radio" name="q39" value="b" id="q39b"><label for="q39b">b. „Sufletul Meu este tulburat."</label></div>
+<div class="option"><input type="radio" name="q39" value="c" id="q39c"><label for="q39c">c. „Sufletul Meu este liniștit."</label></div>
+<div class="feedback" data-question="39"></div>
+</div>
+
+<div class="question">
+<div class="question-text">40. Ce a răspuns glasul din cer? <span style="color: #667eea; font-style: italic;">(Ioan 12:28)</span></div>
+<div class="option"><input type="radio" name="q40" value="a" id="q40a"><label for="q40a">a. „Te voi izbăvi."</label></div>
+<div class="option"><input type="radio" name="q40" value="b" id="q40b"><label for="q40b">b. „L-am proslăvit și-L voi mai proslăvi."</label></div>
+<div class="option"><input type="radio" name="q40" value="c" id="q40c"><label for="q40c">c. „Acesta este Fiul Meu."</label></div>
+<div class="feedback" data-question="40"></div>
+</div>
+
+</div>
+
+<div class="section">
+<div class="section-title">III. Asociere (10 puncte)</div>
+<p style="margin-bottom: 20px; color: #666;">Asociați persoanele cu descrierile corespunzătoare:</p>
+
+<div class="matching-item">
+<strong>41. Toma</strong>
+<select name="q41" id="q41">
+<option value="">Alege...</option>
+<option value="A">A. "Știu că va învia la înviere, în ziua de apoi."</option>
+<option value="B">B. A plâns la mormântul lui Lazar</option>
+<option value="C">C. A spus "Să mergem și noi să murim cu El"</option>
+<option value="D">D. A uns picioarele lui Isus cu mir</option>
+<option value="E">E. A prorocit că Isus avea să moară pentru neam</option>
+</select>
+<span style="color: #667eea; font-style: italic;">(Ioan 11:16)</span>
+<div class="feedback" data-question="41"></div>
+</div>
+
+<div class="matching-item">
+<strong>42. Marta</strong>
+<select name="q42" id="q42">
+<option value="">Alege...</option>
+<option value="A">A. "Știu că va învia la înviere, în ziua de apoi."</option>
+<option value="B">B. A plâns la mormântul lui Lazar</option>
+<option value="C">C. A spus "Să mergem și noi să murim cu El"</option>
+<option value="D">D. A uns picioarele lui Isus cu mir</option>
+<option value="E">E. A prorocit că Isus avea să moară pentru neam</option>
+</select>
+<span style="color: #667eea; font-style: italic;">(Ioan 11:24)</span>
+<div class="feedback" data-question="42"></div>
+</div>
+
+<div class="matching-item">
+<strong>43. Isus</strong>
+<select name="q43" id="q43">
+<option value="">Alege...</option>
+<option value="A">A. "Știu că va învia la înviere, în ziua de apoi."</option>
+<option value="B">B. A plâns la mormântul lui Lazar</option>
+<option value="C">C. A spus "Să mergem și noi să murim cu El"</option>
+<option value="D">D. A uns picioarele lui Isus cu mir</option>
+<option value="E">E. A prorocit că Isus avea să moară pentru neam</option>
+</select>
+<span style="color: #667eea; font-style: italic;">(Ioan 11:35)</span>
+<div class="feedback" data-question="43"></div>
+</div>
+
+<div class="matching-item">
+<strong>44. Caiafa</strong>
+<select name="q44" id="q44">
+<option value="">Alege...</option>
+<option value="A">A. "Știu că va învia la înviere, în ziua de apoi."</option>
+<option value="B">B. A plâns la mormântul lui Lazar</option>
+<option value="C">C. A spus "Să mergem și noi să murim cu El"</option>
+<option value="D">D. A uns picioarele lui Isus cu mir</option>
+<option value="E">E. A prorocit că Isus avea să moară pentru neam</option>
+</select>
+<span style="color: #667eea; font-style: italic;">(Ioan 11:49-51)</span>
+<div class="feedback" data-question="44"></div>
+</div>
+
+<div class="matching-item">
+<strong>45. Maria</strong>
+<select name="q45" id="q45">
+<option value="">Alege...</option>
+<option value="A">A. "Știu că va învia la înviere, în ziua de apoi."</option>
+<option value="B">B. A plâns la mormântul lui Lazar</option>
+<option value="C">C. A spus "Să mergem și noi să murim cu El"</option>
+<option value="D">D. A uns picioarele lui Isus cu mir</option>
+<option value="E">E. A prorocit că Isus avea să moară pentru neam</option>
+</select>
+<span style="color: #667eea; font-style: italic;">(Ioan 12:3)</span>
+<div class="feedback" data-question="45"></div>
+</div>
+
+</div>
+
+<div class="section">
+<div class="section-title">IV. Răspuns multiplu (25 puncte)</div>
+<p style="margin-bottom: 20px; color: #666;">Selectați toate răspunsurile corecte (câte 5 puncte fiecare):</p>
+
+<div class="question">
+<div class="question-text">46. Ce a spus Isus Martei? <span style="color: #667eea; font-style: italic;">(Ioan 11:23, 25)</span></div>
+<div class="option"><input type="checkbox" name="q46" value="a" id="q46a"><label for="q46a">a. „Fratele tău va învia."</label></div>
+<div class="option"><input type="checkbox" name="q46" value="b" id="q46b"><label for="q46b">b. „Eu sunt Învierea și Viața."</label></div>
+<div class="option"><input type="checkbox" name="q46" value="c" id="q46c"><label for="q46c">c. „Eu sunt Calea, Adevărul și Viața."</label></div>
+<div class="feedback" data-question="46"></div>
+</div>
+
+<div class="question">
+<div class="question-text">47. Ce s-a întâmplat la învierea lui Lazăr? <span style="color: #667eea; font-style: italic;">(Ioan 11:43, 44)</span></div>
+<div class="option"><input type="checkbox" name="q47" value="a" id="q47a"><label for="q47a">a. Isus a strigat cu glas tare: „Lazăre, vino afară!"</label></div>
+<div class="option"><input type="checkbox" name="q47" value="b" id="q47b"><label for="q47b">b. Lazăr a fugit din mormânt singur și dezlegat</label></div>
+<div class="option"><input type="checkbox" name="q47" value="c" id="q47c"><label for="q47c">c. Lazăr a ieșit legat la mâini și la picioare cu fâșii de pânză</label></div>
+<div class="feedback" data-question="47"></div>
+</div>
+
+<div class="question">
+<div class="question-text">48. Ce reacții a avut mulțimea când Isus a strigat „Lazăre, vino afară!"? <span style="color: #667eea; font-style: italic;">(Ioan 11:45-46)</span></div>
+<div class="option"><input type="checkbox" name="q48" value="a" id="q48a"><label for="q48a">a. Mulți au crezut în El.</label></div>
+<div class="option"><input type="checkbox" name="q48" value="b" id="q48b"><label for="q48b">b. Unii s-au dus la farisei și au spus ce făcuse Isus.</label></div>
+<div class="option"><input type="checkbox" name="q48" value="c" id="q48c"><label for="q48c">c. Toți L-au părăsit.</label></div>
+<div class="feedback" data-question="48"></div>
+</div>
+
+<div class="question">
+<div class="question-text">49. Ce striga mulțimea la intrarea lui Isus în Ierusalim? <span style="color: #667eea; font-style: italic;">(Ioan 12:13)</span></div>
+<div class="option"><input type="checkbox" name="q49" value="a" id="q49a"><label for="q49a">a. „Osana!"</label></div>
+<div class="option"><input type="checkbox" name="q49" value="b" id="q49b"><label for="q49b">b. „Binecuvântat este Cel ce vine în Numele Domnului!"</label></div>
+<div class="option"><input type="checkbox" name="q49" value="c" id="q49c"><label for="q49c">c. „Pilat este împăratul nostru!"</label></div>
+<div class="feedback" data-question="49"></div>
+</div>
+
+<div class="question">
+<div class="question-text">50. De ce nu mărturiseau unii fruntași credința lor în Isus? <span style="color: #667eea; font-style: italic;">(Ioan 12:42-43)</span></div>
+<div class="option"><input type="checkbox" name="q50" value="a" id="q50a"><label for="q50a">a. Pentru că erau înțelepți</label></div>
+<div class="option"><input type="checkbox" name="q50" value="b" id="q50b"><label for="q50b">b. Pentru că le era frică de Farisei</label></div>
+<div class="option"><input type="checkbox" name="q50" value="c" id="q50c"><label for="q50c">c. Iubeau mai mult slava oamenilor decât Slava lui Dumnezeu</label></div>
+<div class="feedback" data-question="50"></div>
+</div>
+
+</div>
+
+<button type="button" class="submit-btn" onclick="checkAnswers()">Verifică răspunsurile</button>
+</form>
+
+<div class="results" id="results">
+<h2>Rezultatul testului</h2>
+<div class="score" id="score"></div>
+<p id="message"></p>
+<button class="reset-btn" onclick="resetTest()">Încearcă din nou</button>
+</div>
+</div>
+</div>
+
+<script>
+const answers = {
+    q1: 'A', q2: 'A', q3: 'A', q4: 'F', q5: 'A', q6: 'A', q7: 'A', q8: 'A', q9: 'A', q10: 'A',
+    q11: 'F', q12: 'F', q13: 'A', q14: 'F', q15: 'F', q16: 'A', q17: 'A', q18: 'A', q19: 'A', q20: 'A',
+    q21: 'a', q22: 'b', q23: 'b', q24: 'a', q25: 'c', q26: 'b', q27: 'a', q28: 'b', q29: 'a', q30: 'b',
+    q31: 'a', q32: 'b', q33: 'a', q34: 'b', q35: 'b', q36: 'a', q37: 'c', q38: 'a', q39: 'b', q40: 'b',
+    q41: 'C', q42: 'A', q43: 'B', q44: 'E', q45: 'D',
+    q46: ['a', 'b'], q47: ['a', 'c'], q48: ['a', 'b'], q49: ['a', 'b'], q50: ['b', 'c']
+};
+
+function checkAnswers() {
+    let score = 0;
+    let totalPoints = 155;
+    
+    for (let i = 1; i <= 45; i++) {
+        const questionName = 'q' + i;
+        const userAnswer = document.querySelector(`input[name="${questionName}"]:checked`) || document.querySelector(`select[name="${questionName}"]`);
+        const feedback = document.querySelector(`.feedback[data-question="${i}"]`);
+        
+        if (userAnswer) {
+            const answer = userAnswer.value;
+            if (answer === answers[questionName]) {
+                let points = i <= 20 ? 2 : (i <= 40 ? 4 : 2);
+                score += points;
+                feedback.textContent = `✓ Corect! (+${points} puncte)`;
+                feedback.className = 'feedback show correct';
+            } else {
+                feedback.textContent = `✗ Greșit. Răspunsul corect: ${answers[questionName]}`;
+                feedback.className = 'feedback show incorrect';
+            }
+        } else {
+            feedback.textContent = '⚠ Nu ai răspuns la această întrebare.';
+            feedback.className = 'feedback show incorrect';
+        }
+    }
+    
+    for (let i = 46; i <= 50; i++) {
+        const questionName = 'q' + i;
+        const checkboxes = document.querySelectorAll(`input[name="${questionName}"]:checked`);
+        const userAnswers = Array.from(checkboxes).map(cb => cb.value).sort();
+        const correctAnswers = answers[questionName].sort();
+        const feedback = document.querySelector(`.feedback[data-question="${i}"]`);
+        
+        if (JSON.stringify(userAnswers) === JSON.stringify(correctAnswers)) {
+            score += 5;
+            feedback.textContent = '✓ Corect! (+5 puncte)';
+            feedback.className = 'feedback show correct';
+        } else {
+            feedback.textContent = `✗ Greșit. Răspunsurile corecte: ${correctAnswers.join(', ')}`;
+            feedback.className = 'feedback show incorrect';
+        }
+    }
+    
+    const percentage = Math.round((score / totalPoints) * 100);
+    document.getElementById('score').textContent = `${score} / ${totalPoints} puncte (${percentage}%)`;
+    
+    let message = '';
+    if (percentage >= 90) {
+        message = '🌟 Excelent! Cunoști foarte bine capitolele 11-12 din Ioan!';
+    } else if (percentage >= 75) {
+        message = '👍 Foarte bine! Ai o înțelegere solidă a textului!';
+    } else if (percentage >= 60) {
+        message = '📖 Bine! Mai citește o dată capitolele pentru o înțelegere mai profundă.';
+    } else {
+        message = '💪 Continuă să studiezi! Recitește capitolele 11-12 din Ioan.';
+    }
+    
+    document.getElementById('message').textContent = message;
+    document.getElementById('results').classList.add('show');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetTest() {
+    document.getElementById('testForm').reset();
+    document.getElementById('results').classList.remove('show');
+    const feedbacks = document.querySelectorAll('.feedback');
+    feedbacks.forEach(fb => {
+        fb.classList.remove('show', 'correct', 'incorrect');
+        fb.textContent = '';
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
